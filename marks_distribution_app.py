@@ -18,6 +18,12 @@ if uploaded_file:
         for index, row in df.iterrows():
             total_marks = row['Total Marks']
 
+            # Ensure it's numeric (if not, set to 0)
+            try:
+                total_marks = int(total_marks)
+            except (ValueError, TypeError):
+                total_marks = 0
+
             # Part A: Random 0-2 marks for 5 questions
             part_a = [random.randint(0, 2) for _ in range(5)]
             part_a_total = sum(part_a)
@@ -27,7 +33,7 @@ if uploaded_file:
 
             # Random distribution for Part B (5 questions, each 0–8)
             part_b = [0] * 5
-            for i in range(remaining):
+            for i in range(max(0, remaining)):
                 # Pick a random question (0-4) that hasn't hit 8 yet
                 available = [idx for idx in range(5) if part_b[idx] < 8]
                 if not available:
