@@ -1,16 +1,3 @@
-import subprocess
-import sys
-
-# Auto-install required packages
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-for package in ['streamlit', 'pandas', 'openpyxl']:
-    try:
-        __import__(package)
-    except ImportError:
-        install(package)
-
 import streamlit as st
 import pandas as pd
 import random
